@@ -12,11 +12,30 @@ model User {
   emailVerified DateTime?
   password String
   name String?
+  list List[]
 
   // everybody can signup
   @@allow('create', true)
 
   // can only be updated and deleted by self
   @@allow('read,update,delete', auth() == this)
-  
   }
+
+
+  model List {
+    id String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    title String
+    private Boolean @default(false)
+    ownerId String
+    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+    // require login
+    @@deny('all', auth() == null)
+    // owner has full access
+    @@allow('all', auth() == owner)
+
+    // can be read by owner or is public 
+    @@allow('read', owner == auth() || !private)
+}
