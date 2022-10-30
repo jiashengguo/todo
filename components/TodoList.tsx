@@ -23,7 +23,7 @@ export default function TodoList({ value }: Props) {
         await del(value.id);
       } catch (error: any) {
         if (error.status == 403) {
-          alert("You are now allowed to do so");
+          alert("You are not allowed to do so");
         }
       }
     }

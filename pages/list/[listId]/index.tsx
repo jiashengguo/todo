@@ -4,7 +4,6 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useCurrentUser } from "@lib/context";
 import TodoComponent from "components/Todo";
-import BreadCrumb from "components/BreadCrumb";
 
 export default function TodoList() {
   const user = useCurrentUser();
@@ -44,9 +43,6 @@ export default function TodoList() {
 
   return (
     <>
-      <div className="px-8 py-2">
-        <BreadCrumb />
-      </div>
       <div className="container w-full flex flex-col items-center pt-12">
         <h1 className="text-2xl font-semibold mb-4">{list?.title}</h1>
         <div className="flex space-x-2">
