@@ -6,3 +6,4 @@ Features:
 
 - User signup/signin
 - Create/Delete a ToDo list either public or private. Public means it could be seen by others.
+- Create/Delete/Complete a ToDo under a ToDo list.

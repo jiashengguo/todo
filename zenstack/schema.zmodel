@@ -12,7 +12,8 @@ model User {
   emailVerified DateTime?
   password String
   name String?
-  list List[]
+  lists List[]
+  todos Todo[]
 
   // everybody can signup
   @@allow('create', true)
@@ -30,6 +31,7 @@ model User {
     private Boolean @default(false)
     ownerId String
     owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    todos Todo[]
 
     // require login
     @@deny('all', auth() == null)
@@ -38,4 +40,25 @@ model User {
 
     // can be read by owner or is public 
     @@allow('read', owner == auth() || !private)
+}
+
+
+model Todo {
+    id String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId String
+    list List @relation(fields: [listId], references: [id], onDelete: Cascade)
+    listId String
+    title String
+    completedAt DateTime?
+
+    // require login
+    @@deny('all', auth() == null)
+
+    @@allow('read', owner == auth() || !list.private)
+
+    // owner has full access, also space members have full access (if the parent List is not private)
+    @@allow('all', list.owner == auth())
 }

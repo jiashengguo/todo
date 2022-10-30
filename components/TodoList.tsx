@@ -31,11 +31,13 @@ export default function TodoList({ value }: Props) {
 
   return (
     <div className="card w-80 bg-base-100 shadow-xl cursor-pointer hover:bg-gray-50">
-      <a>
-        <figure>
-          <Image src={`https://picsum.photos/300/200?r=${value.title}`} width={320} height={200} alt="Cover" />
-        </figure>
-      </a>
+      <Link href={`${router.asPath}/list/${value.id}`}>
+        <a>
+          <figure>
+            <Image src={`https://picsum.photos/300/200?r=${value.title}`} width={320} height={200} alt="Cover" />
+          </figure>
+        </a>
+      </Link>
       <div className="card-body">
         <Link href={`${router.asPath}/${value.id}`}>
           <a>
