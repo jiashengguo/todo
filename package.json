@@ -7,7 +7,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate": "zenstack generate",
-    "db-push": "zenstack db push"
+    "db:push": "zenstack db push",
+    "db:browse": "zenstack studio"
   },
   "dependencies": {
     "@zenstackhq/internal": "~0.1.56",
